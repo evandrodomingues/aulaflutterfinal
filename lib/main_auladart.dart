@@ -1,9 +1,9 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:aulaflutterfinal/classes/aula_dart/aluno.dart';
-import 'package:aulaflutterfinal/classes/aula_dart/boletim.dart';
-import 'package:aulaflutterfinal/classes/aula_dart/diciplina.dart';
-import 'package:aulaflutterfinal/classes/aula_dart/professor.dart';
+import '/models/aula_dart/aluno.dart';
+import '/models/aula_dart/boletim.dart';
+import '/models/aula_dart/diciplina.dart';
+import '/models/aula_dart/professor.dart';
 
 void main() {
   var boletim = Boletin(
