@@ -1,16 +1,16 @@
+import 'package:aulaflutterfinal/pages/edit_titulo_page.dart';
+import 'package:aulaflutterfinal/repositories/times_repository.dart';
+import 'package:aulaflutterfinal/widgets/brasao.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import '../models/time.dart';
-import '../models/titulo.dart';
 import './add_titulo_page.dart';
 
 // ignore: must_be_immutable
 class TimePage extends StatefulWidget {
   Time time;
-  TimePage({
-    Key? key,
-    required this.time,
-  }) : super(key: key);
+  TimePage({Key? key, required this.time}) : super(key: key);
 
   @override
   _TimePageState createState() => _TimePageState();
@@ -18,23 +18,7 @@ class TimePage extends StatefulWidget {
 
 class _TimePageState extends State<TimePage> {
   tituloPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddTituloPage(time: widget.time, onSave: addTitulo),
-      ),
-    );
-  }
-
-  addTitulo(Titulo titulo) {
-    setState(() {
-      widget.time.titulos.add(titulo);
-    });
-
-    Navigator.pop(context);
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Salvo com sucesso!')));
+    Get.to(() => AddTituloPage(time: widget.time));
   }
 
   @override
@@ -68,8 +52,10 @@ class _TimePageState extends State<TimePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Image.network(
-                    widget.time.brasao.replaceAll("40x40", "100x100")),
+                child: Brasao(
+                  image: widget.time.brasao,
+                  width: 250,
+                ),
               ),
               Text(
                 'Pontos: ${widget.time.pontos}',
@@ -84,7 +70,11 @@ class _TimePageState extends State<TimePage> {
   }
 
   Widget titulos() {
-    final quantidade = widget.time.titulos.length;
+    final time = Provider.of<TimesRepository>(context)
+        .times
+        .firstWhere((t) => t.nome == widget.time.nome);
+
+    final quantidade = time.titulos.length;
 
     return quantidade == 0
         ? const Center(
@@ -94,8 +84,14 @@ class _TimePageState extends State<TimePage> {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 leading: const Icon(Icons.emoji_events),
-                title: Text(widget.time.titulos[index].campeonato),
-                trailing: Text(widget.time.titulos[index].ano),
+                title: Text(time.titulos[index].campeonato),
+                trailing: Text(time.titulos[index].ano),
+                onTap: () {
+                  Get.to(
+                    EditTituloPage(titulo: time.titulos[index]),
+                    fullscreenDialog: true,
+                  );
+                },
               );
             },
             separatorBuilder: (_, __) => const Divider(),

@@ -11,7 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  provider: ^6.0.2
+  get: ^4.6.1
 
   cupertino_icons: ^1.0.4
 
