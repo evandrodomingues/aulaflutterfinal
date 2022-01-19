@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:aulaflutterfinal/models/time.dart';
+import 'package:aulaflutterfinal/pages/time_page.dart';
 
 import '/controller/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +29,24 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Brasileirão'),
       ),
       body: ListView.separated(
-        itemBuilder: (BuildContext contexto, int i) {
+        itemBuilder: (BuildContext contexto, int time) {
           final List<Time> tabela = controller.tabela;
           return ListTile(
-            leading: Image.network(tabela[i].brasao),
-            title: Text(tabela[i].nome),
+            onTap: () {
+              Navigator.push(
+                contexto,
+                MaterialPageRoute(
+                  builder: (_) => TimePage(
+                    key: Key(tabela[time].nome),
+                    time: tabela[time],
+                  ),
+                ),
+              );
+            },
+            leading: Image.network(tabela[time].brasao),
+            title: Text(tabela[time].nome),
             trailing: Text(
-              tabela[i].pontos.toString(),
+              tabela[time].pontos.toString(),
             ),
           );
         },

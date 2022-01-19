@@ -2,14 +2,14 @@
 
 import '/models/time.dart';
 import '/models/titulo.dart';
-import '/repositories/home_repository.dart';
+import '../repositories/times_repository.dart';
 
 class HomeController {
-  late TimeRepository timeRepository;
+  late TimesRepository timeRepository;
 
   List<Time> get tabela => timeRepository.times;
 
   HomeController() {
-    timeRepository = TimeRepository();
+    timeRepository = TimesRepository();
   }
 }
