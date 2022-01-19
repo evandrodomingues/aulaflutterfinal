@@ -1,4 +1,4 @@
-import 'package:aulaflutterfinal/classes/professor.dart';
+import 'package:aulaflutterfinal/classes/aula_dart/professor.dart';
 
 class Diciplina {
   String nome;

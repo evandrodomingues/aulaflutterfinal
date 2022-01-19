@@ -1,4 +1,4 @@
-import 'package:aulaflutterfinal/classes/pessoa.dart';
+import 'package:aulaflutterfinal/classes/aula_dart/pessoa.dart';
 
 class Aluno extends Pessoa {
   String ra;
